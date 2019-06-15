@@ -1,0 +1,19 @@
+load("@bazel_skylib//lib:new_sets.bzl", "sets")
+load(":create_whole_projects.bzl", "create_whole_projects")
+
+everything = sets.make(glob(["**"]))
+all_files = sets.make(glob(["directories/**"], exclude_directories = 1))
+
+# All my attempts at getting the directories dynamically have failed...
+steps = [
+  "100-my-first-angular-app",
+  "101-data-binding",
+  "102-template-events",
+  "103-multiple-components",
+  "104-modules",
+  "105-routing-and-lazy-loading"
+]
+
+[create_whole_projects(
+  name = "CREATE_PROJECT",
+) for source_file in steps]
