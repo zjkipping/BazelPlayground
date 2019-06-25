@@ -1,11 +1,13 @@
-load("@bazel_skylib//lib:new_sets.bzl", "sets")
-load(":create_whole_projects.bzl", "create_whole_projects")
+# load("@bazel_skylib//lib:new_sets.bzl", "sets")
+# load(":copy-directory.bzl", "copy_directory", "create_whole_projects")
+load(":copy-directory.bzl", "copy_project")
+# copy_directory(name="test_action", source="100-my-first-angular-app", target="out")
 
-everything = sets.make(glob(["**"]))
-all_files = sets.make(glob(["directories/**"], exclude_directories = 1))
+# everything = sets.make(glob(["**"]))
+# all_files = sets.make(glob(["directories/**"], exclude_directories = 1))
 
 # All my attempts at getting the directories dynamically have failed...
-steps = [
+curr_steps = [
   "100-my-first-angular-app",
   "101-data-binding",
   "102-template-events",
@@ -14,6 +16,20 @@ steps = [
   "105-routing-and-lazy-loading"
 ]
 
-[create_whole_projects(
-  name = "CREATE_PROJECT",
-) for source_file in steps]
+[copy_project(
+  source = step
+)for step in curr_steps]
+
+# copy_directory(
+#   name="copy",
+#   source = "100-my-first-angular-app"
+# )
+
+# genrule(
+#   name="copy-1"
+#   srcs=["100-my-first-angular-app"],
+#   outs=["100-my-first-angular-app.OUT"],
+#   cmd="cp -r $(SRCS) $(OUTS)"
+# )
+
+# create_Whole_projects(name="test_create")
