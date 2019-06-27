@@ -16,9 +16,13 @@ curr_steps = [
   "105-routing-and-lazy-loading"
 ]
 
-[copy_project(
-  source = step
-)for step in curr_steps]
+copy_project(
+  source="100-my-first-angular-app"
+)
+
+# [copy_project(
+#   source = step
+# )for step in curr_steps]
 
 # copy_directory(
 #   name="copy",

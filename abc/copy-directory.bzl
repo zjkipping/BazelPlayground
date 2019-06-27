@@ -4,14 +4,14 @@ def copy_project(source, target = None):
 
   copy_directory(
     name = source + ".COPY",
-    in_directory = source,
-    out_directory = target
+    source = source,
+    output = target
   )
 
   copy_directory(
     name = source + ".TEMPLATE",
-    in_directory = "template",
-    out_directory = target
+    source = "template",
+    output = target
   )
 
   # native.genrule(
@@ -30,15 +30,20 @@ def copy_project(source, target = None):
   # )
 
 def _copy_directory_impl(ctx):
+  in_directory = ctx.file.input
+  out_directory = ctx.actions.declare_file(ctx.outputs.output)
+
   ctx.actions.run_shell(
-    inputs = [ctx.attr]
+    inputs = [in_directory],
+    outputs = [out_directory],
+    command = "cp -r %s %s" % (in_directory, out_directory)
   )
 
 copy_directory = rule(
   implementation = _copy_directory_impl,
   attrs = {
-    "in_directory": attr.string(),
-    "out_directory": attr.string(),
+    "source": attr.label(),
+    "output": attr.output(),
     "deps": attr.label_list()
   }
 )
