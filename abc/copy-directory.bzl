@@ -15,7 +15,8 @@ def copy_project(source, target = None):
   copy_directory(
     name = source + ".TEMPLATE",
     source = "template",
-    output = target
+    output = target,
+    deps = [":" + source + ".COPY"]
   )
 
 def _copy_directory_impl(ctx):
@@ -25,6 +26,7 @@ def _copy_directory_impl(ctx):
   ctx.actions.run_shell(
     inputs = [in_directory],
     outputs = [out_directory],
+    # Might want to change this to "cp %s/* %s" so that the contents of the source go to the target folder (provided it exists)
     command = "cp -r %s %s" % (in_directory, out_directory)
   )
 
