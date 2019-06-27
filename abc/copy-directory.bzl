@@ -8,26 +8,15 @@ def copy_project(source, target = None):
     output = target
   )
 
+  # this won't work since they both have the same declared output...
+  # It might come down to declaring a new folder/directory from this macro (need to convert to an implementation/rule to get a ctx)
+  # Then the copy_directory can declare all the files in the directory it's copying using a filegroup (with a glob)?
+
   copy_directory(
     name = source + ".TEMPLATE",
     source = "template",
     output = target
   )
-
-  # native.genrule(
-  #   name = source + ".COPY",
-  #   srcs = [source],
-  #   outs = [target],
-  #   cmd = "cp -r $(SRCS) $(OUTS)"
-  # )
-
-  # native.genrule(
-  #   name = source + ".TEMPLATE",
-  #   srcs = ["template/*"],
-  #   outs = [target],
-  #   cmd = "cp -r $(SRCS) $(OUTS)",
-  #   deps = [":" + source + ".OUT"]
-  # )
 
 def _copy_directory_impl(ctx):
   in_directory = ctx.file.input
