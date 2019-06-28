@@ -1,28 +1,19 @@
-# load("@bazel_skylib//lib:new_sets.bzl", "sets")
-load(":copy-directory.bzl", "copy_project")
 load(":combine-step-with-template.bzl", "combine_step_with_template")
 
-# everything = sets.make(glob(["**"]))
-# all_files = sets.make(glob(["directories/**"], exclude_directories = 1))
+curr_steps = [
+  "100-my-first-angular-app",
+  "101-data-binding",
+  "102-template-events",
+  "103-multiple-components",
+  "104-modules",
+  "105-routing-and-lazy-loading"
+]
 
-# All my attempts at getting the directories dynamically have failed...
-# curr_steps = [
-#   "100-my-first-angular-app",
-#   "101-data-binding",
-#   "102-template-events",
-#   "103-multiple-components",
-#   "104-modules",
-#   "105-routing-and-lazy-loading"
-# ]
 
-combine_step_with_template(
-  name = "test_combine",
-  step_directory = "100-my-first-angular-app"
-)
-
-# copy_project(
-#   source="100-my-first-angular-app"
-# )
+[combine_step_with_template(
+  name = step + ".COMBINE",
+  step_directory = step
+)for step in curr_steps]
 
 # [copy_project(
 #   source = step
