@@ -1,4 +1,5 @@
 load(":combine-step-with-template.bzl", "combine_step_with_template")
+load(":combine_two_directories.bzl", "combine_two_directories")
 
 curr_steps = [
   "100-my-first-angular-app",
@@ -10,11 +11,24 @@ curr_steps = [
 ]
 
 
-[combine_step_with_template(
-  name = step + ".COMBINE",
-  step_directory = step
-)for step in curr_steps]
-
-# [copy_project(
-#   source = step
+# [combine_step_with_template(
+#   name = step + ".COMBINE",
+#   step_directory = step
 # )for step in curr_steps]
+
+filegroup(
+  name = "step.GROUP",
+  srcs = ["100-my-first-angular-app"]
+)
+
+filegroup(
+  name = "template.GROUP",
+  srcs = ["SKIP-publish/template"]
+)
+
+combine_two_directories(
+  dir1 = ":step.GROUP",
+  dir2 = ":template.GROUP",
+  target = "step.OUT",
+  deps = []
+)
