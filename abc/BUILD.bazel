@@ -10,25 +10,26 @@ curr_steps = [
   "105-routing-and-lazy-loading"
 ]
 
+[combine_step_with_template(
+    name = step + ".COMBINE",
+    step_directory = step
+  )for step in curr_steps]
 
-# [combine_step_with_template(
-#   name = step + ".COMBINE",
-#   step_directory = step
-# )for step in curr_steps]
+# attempt to use pkg_tar for packaging the steps + angular project files together
 
-filegroup(
-  name = "step.GROUP",
-  srcs = ["100-my-first-angular-app"]
-)
+# filegroup(
+#   name = "step.GROUP",
+#   srcs = ["100-my-first-angular-app"]
+# )
 
-filegroup(
-  name = "template.GROUP",
-  srcs = ["SKIP-publish/template"]
-)
+# filegroup(
+#   name = "template.GROUP",
+#   srcs = ["SKIP-publish/template"]
+# )
 
-combine_two_directories(
-  dir1 = ":step.GROUP",
-  dir2 = ":template.GROUP",
-  target = "step.OUT",
-  deps = []
-)
+# combine_two_directories(
+#   dir1 = ":step.GROUP",
+#   dir2 = ":template.GROUP",
+#   target = "step.OUT",
+#   deps = []
+# )

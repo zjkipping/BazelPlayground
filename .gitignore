@@ -2,4 +2,4 @@ bazel-testlogs
 bazel-out
 bazel-genfiles
 bazel-bin
-bazel-bazel-playground
+bazel-bazelplayground

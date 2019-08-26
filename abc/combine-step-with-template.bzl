@@ -2,9 +2,6 @@ def combine_step_with_template_impl(ctx):
   source_directory = ctx.attr.step_directory
   target_directory = ctx.actions.declare_directory(source_directory + ".OUT")
 
-  # Might be able to make use of pkg_tar to package up certain things and extract them to other locations.
-  # Make a reusable one for the template & create one for each step directory?
-
   ctx.actions.run_shell(
     inputs = [],
     outputs = [target_directory],
